@@ -1,0 +1,163 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum MangaStatus {
+  ONGOING
+  FINISHED
+  CANCELLED
+  HIATUS
+}
+
+enum CollectionStatus {
+  OWNED
+  MISSING
+  DESIRED
+}
+
+enum AlertDirection {
+  ABOVE
+  BELOW
+}
+
+model Manga {
+  id           String      @id @default(cuid())
+  name         String
+  slug         String      @unique
+  altName      String?
+  publisher    String
+  status       MangaStatus @default(ONGOING)
+  synopsis     String?
+  coverUrl     String?
+  totalVolumes Int
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  volumes Volume[]
+
+  @@index([name])
+  @@index([publisher])
+  @@index([status])
+}
+
+model Volume {
+  id          String   @id @default(cuid())
+  mangaId     String
+  number      Int
+  title       String?
+  coverUrl    String?
+  releaseDate DateTime?
+  createdAt   DateTime @default(now())
+
+  manga        Manga         @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  productLinks ProductLink[]
+  collection   Collection[]
+  wishlist     Wishlist[]
+  alerts       Alert[]
+
+  @@unique([mangaId, number])
+  @@index([mangaId])
+}
+
+model Store {
+  id     String  @id @default(cuid())
+  name   String  @unique
+  slug   String  @unique
+  url    String
+  active Boolean @default(true)
+
+  productLinks ProductLink[]
+}
+
+model ProductLink {
+  id          String    @id @default(cuid())
+  volumeId    String
+  storeId     String
+  url         String
+  active      Boolean   @default(true)
+  lastScraped DateTime?
+  createdAt   DateTime  @default(now())
+
+  volume       Volume        @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+  store        Store         @relation(fields: [storeId], references: [id])
+  priceRecords PriceRecord[]
+
+  @@unique([volumeId, storeId])
+  @@index([storeId])
+  @@index([volumeId])
+}
+
+model PriceRecord {
+  id            String   @id @default(cuid())
+  productLinkId String
+  price         Float
+  available     Boolean  @default(true)
+  scrapedAt     DateTime @default(now())
+
+  productLink ProductLink @relation(fields: [productLinkId], references: [id], onDelete: Cascade)
+
+  @@index([productLinkId, scrapedAt])
+  @@index([scrapedAt])
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  avatar    String?
+  createdAt DateTime @default(now())
+
+  collection Collection[]
+  wishlist   Wishlist[]
+  alerts     Alert[]
+}
+
+model Collection {
+  id        String           @id @default(cuid())
+  userId    String
+  volumeId  String
+  status    CollectionStatus @default(DESIRED)
+  createdAt DateTime         @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  volume Volume @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, volumeId])
+  @@index([userId])
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  volumeId  String
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  volume Volume @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, volumeId])
+  @@index([userId])
+}
+
+model Alert {
+  id          String         @id @default(cuid())
+  userId      String
+  volumeId    String
+  targetPrice Float
+  direction   AlertDirection
+  active      Boolean        @default(true)
+  notifiedAt  DateTime?
+  createdAt   DateTime       @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  volume Volume @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([volumeId])
+}

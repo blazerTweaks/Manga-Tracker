@@ -1,0 +1,31 @@
+{
+  "name": "@mangatracker/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "tsc --noEmit",
+    "scrape": "tsx src/scripts/scrape.ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@mangatracker/database": "*",
+    "@mangatracker/scraper": "*",
+    "@mangatracker/shared": "*",
+    "@fastify/cors": "^11.2.0",
+    "@fastify/jwt": "^10.1.0",
+    "fastify": "^5.8.5",
+    "bcryptjs": "^3.0.3",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^25.9.2",
+    "@types/node-cron": "^3.0.11",
+    "tsx": "^4.22.4",
+    "typescript": "^5.8.0"
+  }
+}

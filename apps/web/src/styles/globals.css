@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-base-50: #e9ecef;
+  --color-base-100: #dee2e6;
+  --color-base-200: #adb5bd;
+  --color-base-300: #868e96;
+  --color-base-400: #6c757d;
+  --color-base-500: #495057;
+  --color-base-600: #343a40;
+  --color-base-700: #212529;
+  --color-base-800: #343a40;
+  --color-base-900: #212529;
+
+  --color-accent: #2b8a3e;
+  --color-accent-muted: #d3f9d8;
+  --color-danger: #e03131;
+  --color-danger-muted: #ffe0e0;
+
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f8f9fa;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html.dark {
+  --color-base-50: #2c3035;
+  --color-base-100: #25282b;
+  --color-base-200: #3a3f45;
+  --color-base-300: #495057;
+  --color-base-400: #5a6168;
+  --color-base-500: #6c757d;
+  --color-base-600: #adb5bd;
+  --color-base-700: #ced4da;
+  --color-base-800: #dee2e6;
+  --color-base-900: #e9ecef;
+
+  --color-accent: #40c057;
+  --color-accent-muted: #1a3a22;
+  --color-danger: #ff6b6b;
+  --color-danger-muted: #2c1515;
+
+  --color-surface: #121416;
+  --color-surface-secondary: #1a1d20;
+
+  --color-btn-primary-bg: #495057;
+  --color-btn-primary-text: #e9ecef;
+  --color-btn-danger-text: #e9ecef;
+}
+
+:root {
+  --color-btn-primary-bg: #212529;
+  --color-btn-primary-text: #ffffff;
+  --color-btn-danger-text: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-base-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  border: 1.5px solid var(--color-base-400);
+  border-radius: 6px;
+  background: var(--color-surface);
+  color: var(--color-base-900);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--color-base-900);
+}
+
+::placeholder {
+  color: var(--color-base-400);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-base-600);
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-base-200);
+}
+
+td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-base-100);
+  font-size: 0.875rem;
+}
+
+tr:hover td {
+  background-color: var(--color-base-100);
+  cursor: pointer;
+}

@@ -25,15 +25,6 @@ mangatracker/
 - Alertas de preço
 - Dashboard com promoções e maiores quedas
 
-## Tecnologias
-
-- **Monorepo:** Turborepo + npm workspaces
-- **API:** Fastify 5 + Prisma 6
-- **Frontend:** React 19 + React Router 7 + Vite 8 + Tailwind CSS 4
-- **Scraping:** Playwright + Cheerio
-- **DB:** SQLite (dev) / PostgreSQL (prod)
-- **Auth:** JWT + bcryptjs
-
 ## Começando
 
 ```bash
@@ -44,12 +35,12 @@ npm run dev
 
 ## Scripts
 
-| Comando | Descrição |
-|---|---|
-| `npm run dev` | Inicia apps/packages em modo dev |
-| `npm run build` | Compila todos os pacotes |
-| `npm run db:generate` | Gera cliente Prisma |
-| `npm run db:push` | Sincroniza schema com o banco |
-| `npm run db:migrate` | Executa migrations |
-| `npm run db:seed` | Popula banco com dados de exemplo |
-| `npm run manga` | Executa CLI |
+| Comando               | Descrição                         |
+| --------------------- | --------------------------------- |
+| `npm run dev`         | Inicia apps/packages em modo dev  |
+| `npm run build`       | Compila todos os pacotes          |
+| `npm run db:generate` | Gera cliente Prisma               |
+| `npm run db:push`     | Sincroniza schema com o banco     |
+| `npm run db:migrate`  | Executa migrations                |
+| `npm run db:seed`     | Popula banco com dados de exemplo |
+| `npm run manga`       | Executa CLI                       |
